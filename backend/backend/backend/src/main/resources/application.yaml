@@ -1,0 +1,19 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: sys as sysdba
+    password: abcde
+  liquibase:
+    change-log:
+      classpath: db/changelog/master.xml
+
+server:
+  port: 8090
+
+# TODO: change vals
+jwt:
+  token:
+    secret: secret
+    expire: 3600000

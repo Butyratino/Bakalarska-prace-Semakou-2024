@@ -1,0 +1,33 @@
+/* WelcomeForm.css */
+
+.WelcomeForm {
+    max-width: 400px;
+    margin: auto; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .WelcomeForm-title {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .WelcomeForm-link {
+    display: block;
+    width: calc(100% - 40px); /* Adjusted width for buttons */
+    margin: 10px auto; /* Centered buttons with margin */
+    padding: 10px;
+    background-color: #007bff; /* Blue button */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .WelcomeForm-link:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }

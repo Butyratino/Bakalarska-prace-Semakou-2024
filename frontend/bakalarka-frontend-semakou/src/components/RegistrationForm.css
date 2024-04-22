@@ -1,0 +1,42 @@
+/* RegistrationForm.css */
+
+.RegistrationForm {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px; 
+}
+
+.RegistrationForm-title {
+  font-size: 24px;
+  color: #007bff; 
+  margin-bottom: 20px;
+}
+
+.RegistrationForm-input-container {
+  margin-bottom: 15px;
+}
+
+.RegistrationForm-input {
+  width: calc(100% - 40px); /* Adjusted width for input fields */
+  margin: 0 auto; /* Centered input fields with margin */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.RegistrationForm-button,
+.RegistrationForm-button-back {
+  display: block;
+  width: calc(100% - 40px); /* Adjusted width for buttons */
+  margin: 10px auto; /* Centered buttons with margin */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
