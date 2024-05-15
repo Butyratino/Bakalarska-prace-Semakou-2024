@@ -1,0 +1,45 @@
+/* WelcomeForm.css */
+
+.WelcomeForm {
+  max-width: 400px;
+  margin: 0 auto; /* Set margin to 0 and auto to horizontally center the form */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  /* Center the form vertically and horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the height of the form to 100% of the viewport height */
+}
+
+.WelcomeForm-title {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.WelcomeForm-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.WelcomeForm-link:hover {
+  background-color: #e08e00; 
+}
+
+
+.WelcomeForm-link.Continue {
+  width: 100%; 
+}

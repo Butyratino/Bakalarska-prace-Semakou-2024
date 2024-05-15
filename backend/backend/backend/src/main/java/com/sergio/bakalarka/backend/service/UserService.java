@@ -20,11 +20,9 @@ public class UserService {
 
     private final UserDao userDao;
     private final BCryptPasswordEncoder passwordEncoder;
-
-
-    public void register(RegistrationUserRequest user) {
+    public void registration(RegistrationUserRequest user) {
         if(userDao.checkIsUserExistByUsername(user.getUsername())){
-            throw new RuntimeException("Username already exists!");
+            throw new RuntimeException("Choose another username. This username already exists!");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.addNewUser(user);
@@ -59,10 +57,6 @@ public class UserService {
     public void updateUserDetails(Integer id, UserDetailsDto userDetails) {
         userDao.updateUserDetails(id, userDetails);
     }
-    public void addUserDetails(Integer id, UserDetailsDto userDetails) {
-        userDao.addUserDetails(id, userDetails);
-    }
-
 
     public List<UserDetailsDto> changeUserRole(ChangeRoleRequest request) {
         return userDao.changeUserRole(request);
@@ -76,16 +70,4 @@ public class UserService {
         return userDao.getUserAvatarData(userId);
     }
 
-    public double calculateTotalPayments(Integer userId) {
-        return userDao.calculateTotalPayments(userId);
-    }
-
-    public String findRichestUser() {
-        return userDao.findRichestUser();
-    }
-
-
-//    public ResponseEntity<UserDetailsDto> getUserDetailsById(Integer userId) {
-//        return userDao.getUserDetailsById(username);
-//    }
 }

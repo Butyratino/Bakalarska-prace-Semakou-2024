@@ -1,0 +1,62 @@
+/* LoginForm.css */
+
+.LoginForm {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.LoginForm-title {
+  font-size: 24px;
+  color: #007bff; 
+  margin-bottom: 20px;
+}
+
+.LoginForm-input-container {
+  margin-bottom: 15px;
+}
+
+.LoginForm-input {
+  width: 100%;
+  padding: 8px; /* Adjust padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Add box-sizing property */
+}
+
+
+
+.LoginForm-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Updated style for the back button */
+.LoginForm-button-back {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #ccc; /* Adjust background color */
+  color: #fff; /* Adjust text color */
+}

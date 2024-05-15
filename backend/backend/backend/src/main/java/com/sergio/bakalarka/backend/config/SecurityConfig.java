@@ -33,18 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String PRODUCTS_ENDPOINT = "/api/products/**";
     private static final String USERS_ENDPOINT = "/api/profile/**";
-
-    // TODO: todododo
-    private static final String ADMIN_ENDPOINT = "/api/user/**";
     private static final String LOGIN_ENDPOINT = "/api/auth/**";
-    private static final String SECTIONS_ENDPOINT = "/api/sections/**";
-    private static final String ADDITIONALSERVICES_ENDPOINT = "/api/addservices/**";
-    private static final String ATTRACTIONS_ENDPOINT = "/api/attractions/**";
-    private static final String TICKETS_ENDPOINT = "/api/tickets/**";
-    private static final String PAYMENTS_ENDPOINT = "/api/payments/**";
-    private static final String EMPLOYEES_ENDPOINT = "/api/employees/**";
-    private static final String SCHEDULES_ENDPOINT = "/api/schedules/**";
-    private static final String AQUAPARK_ENDPOINT = "/api/digitaldynasty/**";
+    private static final String COMMENTS_ENDPOINT = "/api/comments/**";
+    private static final String ADMIN_ENDPOINT = "/api/user/**";
+    private static final String CART_ENDPOINT = "/api/cart/**";
+    private static final String ORDER_ENDPOINT = "/api/order/**";
+
+
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -65,19 +62,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/api/sections/add").permitAll()
                 .antMatchers(PRODUCTS_ENDPOINT).permitAll()
-                //TODO
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
-                .antMatchers(SECTIONS_ENDPOINT).permitAll()
-                .antMatchers(ADDITIONALSERVICES_ENDPOINT).permitAll()
-                .antMatchers(ATTRACTIONS_ENDPOINT).permitAll()
+                .antMatchers(ORDER_ENDPOINT).permitAll()
+                .antMatchers(CART_ENDPOINT).permitAll()
+                .antMatchers(COMMENTS_ENDPOINT).permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/products/delete/**").permitAll()
                 .antMatchers(USERS_ENDPOINT).permitAll()
-                .antMatchers(TICKETS_ENDPOINT).permitAll()
-                .antMatchers(PAYMENTS_ENDPOINT).permitAll()
-                .antMatchers(EMPLOYEES_ENDPOINT).permitAll()
-                .antMatchers(SCHEDULES_ENDPOINT).permitAll()
-                .antMatchers(AQUAPARK_ENDPOINT).permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/profile/*").permitAll()
                 .antMatchers("/api/profile/users/*/avatar").permitAll()
-                .antMatchers(ADMIN_ENDPOINT).hasRole("admin") // todo: check User implements UserDetails
+                .antMatchers(ADMIN_ENDPOINT).hasRole("admin")
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(

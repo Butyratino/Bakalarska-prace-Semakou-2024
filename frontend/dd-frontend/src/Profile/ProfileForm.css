@@ -1,0 +1,183 @@
+/* Existing CSS code */
+
+.profile-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.avatar-container {
+  position: relative;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  right: 20px; /* Move the avatar image to the right */
+}
+
+.user-info {
+  margin-left: 20px; /* Adjust margin as needed */
+}
+
+
+.user-info p {
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align to the left */
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.label {
+  margin-right: 10px; /* Adjust the gap as needed */
+}
+
+.input-field {
+  margin-left: 0; /* Align to the left */
+  width: calc(100% - 10px); /* Stretch text field to the right border */
+}
+
+/* Existing CSS code */
+
+button.back-button {
+  padding: 8px 16px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px; 
+}
+
+button.back-button:hover {
+  background-color: darkred;
+}
+
+.products-container {
+  margin-top: 20px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.product-card img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.users-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Existing CSS code */
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  margin: 10px;
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+}
+
+.user-image {
+  display: flex;
+  justify-content: center; /* Align user image to center */
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.user-image img {
+  width: 150px; /* Adjust the width as needed */
+  height: 150px; /* Adjust the height as needed */
+  border-radius: 50%;
+}
+
+.user-info {
+  margin-left: 20px; /* Adjust margin as needed */
+}
+
+.user-info-item {
+  margin-bottom: 5px;
+}
+
+.user-info-item p {
+  margin: 0;
+}
+
+
+button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0 30px 30px 0; 
+}
+
+button.back-button {
+  padding: 8px 16px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0 30px 30px 0; 
+}
+
+
+
+.add-product-button {
+  padding: 8px 16px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px; 
+}
+
+.add-product-button:hover {
+  background-color: darkgreen;
+}

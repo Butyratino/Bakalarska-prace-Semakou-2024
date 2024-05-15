@@ -17,9 +17,8 @@ public class ProductsDto {
     private String manufacturer;
     private String category;
     private String image;
-    private Long rating;
-    private Long conditionId;
-    private Long sale;
+    private Double rating;
+    private Double sale;
 
     public static RowMapper<ProductsDto> getProductsDtoMapper() {
         return (rs, rowNum) -> {
@@ -32,9 +31,8 @@ public class ProductsDto {
             product.setManufacturer(rs.getString("MANUFACTURER"));
             product.setCategory(rs.getString("CATEGORY"));
             product.setImage(rs.getString("IMAGE"));
-            product.setRating(rs.getLong("RATING"));
-            product.setConditionId(rs.getLong("CONDITIONID"));
-            product.setSale(rs.getLong("sale"));
+            product.setRating(rs.getDouble("RATING"));
+            product.setSale(rs.getDouble("SALE"));
             return product;
         };
     }

@@ -12,46 +12,47 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDetailsDto {
     private Long userId;
-    private String name;
-    private byte[] avatar;
-    private String password;
-    private Integer hasAvatar;
+    private String username;
+    private String role;
     private String email;
     private String phoneNumber;
+    private String password;
     private Timestamp registrationDate;
     private Double balance;
-    private Long roleId;
+    private String avatar;
+    private Integer hasAvatar;
     private Long cartId;
 
     // Constructor with username parameter
     public UserDetailsDto(String username) {
-        this.name = username;
+        this.username = username;
     }
 
     // Constructor with additional parameters
-    public UserDetailsDto(Long userId, String username, Long roleId, String avatar) {
+    public UserDetailsDto(Long userId, String username, String role, String avatar) {
         this.userId = userId;
-        this.name = username;
-        this.roleId = roleId;
-        // Convert the avatar URL to byte[]
-        this.avatar = (avatar != null) ? avatar.getBytes() : null;
+        this.username = username;
+        this.role = role;
+        this.avatar = avatar;
     }
+
+
+
 
     // RowMapper method
     public static RowMapper<UserDetailsDto> getUserDetailsDtoMapper() {
         return (rs, rowNum) -> {
             UserDetailsDto user = new UserDetailsDto();
             user.setUserId(rs.getLong("USERID"));
-            user.setName(rs.getString("USERNAME"));
-            user.setRoleId(rs.getLong("ROLE"));
-            user.setAvatar(rs.getBytes("AVATAR"));
-            user.setPassword(rs.getString("PASSWORD"));
-            user.setHasAvatar(rs.getInt("HASAVATAR"));
+            user.setUsername(rs.getString("USERNAME"));
+            user.setRole(rs.getString("ROLE"));
             user.setEmail(rs.getString("EMAIL"));
             user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+            user.setPassword(rs.getString("PASSWORD"));
             user.setRegistrationDate(rs.getTimestamp("REGISTRATION_DATE"));
             user.setBalance(rs.getDouble("BALANCE"));
-            user.setRoleId(rs.getLong("ROLEID"));
+            user.setAvatar(rs.getString("AVATAR"));
+            user.setHasAvatar(rs.getInt("HASAVATAR"));
             user.setCartId(rs.getLong("CARTID"));
             return user;
         };

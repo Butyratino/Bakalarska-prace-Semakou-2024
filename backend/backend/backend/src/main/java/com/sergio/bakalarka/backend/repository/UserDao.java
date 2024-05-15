@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
 import java.sql.Types;
 import java.util.Base64;
 import java.util.List;
@@ -31,6 +30,7 @@ public class UserDao {
 
 
     private static Integer userId = 1;
+
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -50,17 +50,27 @@ public class UserDao {
     }
 
     public void addNewUser(RegistrationUserRequest user) {
-        String query = "INSERT INTO USERS (USERID, USERNAME, PASSWORD, ROLE) VALUES (?,?,?,?)";
-        jdbcTemplate.update(conn -> {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, userId++);
+        String userQuery = "INSERT INTO USERS (USERID, USERNAME, PASSWORD, ROLE, CARTID, REGISTRATION_DATE) " +
+                "VALUES (?,?,?,?,?,CURRENT_TIMESTAMP)";
+
+        String cartQuery = "INSERT INTO CARTS (CARTID, AMOUNT) VALUES (?,?)";
+
+        Long nextUserId = jdbcTemplate.queryForObject("SELECT user_id_sequence.NEXTVAL FROM DUAL", Long.class);
+        System.out.println("XXXXXXXX " + nextUserId);
+        jdbcTemplate.update(cartQuery, ps -> {
+            ps.setLong(1, nextUserId);
+            ps.setLong(2, 0);
+        });
+
+
+        jdbcTemplate.update(userQuery, ps -> {
+            ps.setLong(1, nextUserId);
             ps.setString(2, user.getUsername());
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getRole());
-            return ps;
+            ps.setLong(5, nextUserId);
         });
     }
-
     public User getUserByUsername(String username) {
         String query = "SELECT * FROM USERS WHERE USERNAME like ?";
         List<User> foundUsers = jdbcTemplate.query(query, new Object[]{username}, User.getUserMapper());
@@ -70,22 +80,20 @@ public class UserDao {
         return foundUsers.get(0);
     }
 
+    public void updateUserDetails(Integer id, UserDetailsDto user) {
+        String sql = "UPDATE USERS " +
+                "SET EMAIL = ?, " +
+                "USERNAME = ?, " +
+                "PHONE_NUMBER = ?, " +
+                "BALANCE = ?, " +
+                "ROLE = ? " +
+                "WHERE USERID = ?";
 
-    public void updateUserDetails(Integer id, UserDetailsDto userDetails) {
-        String procedureCall = "{CALL update_user_details (?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPhoneNumber(), user.getBalance(), user.getRole(), id);
 
-        jdbcTemplate.update(
-                procedureCall,
-                id,
-                userDetails.getAvatar(),
-                userDetails.getPassword(),
-                userDetails.getName(),
-                userDetails.getRoleId(),
-                userDetails.getHasAvatar(),
-                userDetails.getEmail()
-        );
+        System.out.println("User details edited: " + user.toString());
+        System.out.println("XZX " + id);
     }
-
 
     public ResponseEntity<UserDetailsDto> getUserDetailsByUsername(String username) {
         String query = "SELECT * FROM USERS WHERE USERNAME like ?"; //todo
@@ -94,23 +102,6 @@ public class UserDao {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(foundUsers.get(0), HttpStatus.OK);
-    }
-
-    public void addUserDetails(Integer id, UserDetailsDto userDetails) { //todo
-        String query = "insert into contact_details(name, surname, email, city, phone_number, document_number, id_user, img)" +
-                "values(?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(conn -> {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, userDetails.getName());
-            ps.setString(2, userDetails.getName());
-            ps.setString(3, userDetails.getEmail());
-            ps.setString(4, userDetails.getName());
-            ps.setString(5, userDetails.getName());
-            ps.setString(6, userDetails.getName());
-            ps.setInt(7, id);
-            ps.setString(8, userDetails.getName());
-            return ps;
-        });
     }
 
     public List<UserDetailsDto> changeUserRole(ChangeRoleRequest request) {
@@ -152,67 +143,6 @@ public class UserDao {
         return jdbcTemplate.queryForObject(query, new Object[]{userId}, byte[].class);
     }
 
-    public double calculateTotalPayments(Integer userId) {
-        try {
-            // Define the OUT parameter for the function result
-            SqlParameter outParameter = new SqlOutParameter("result", Types.DOUBLE);
-
-            // Set up the call to the stored function
-            SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-                    .withFunctionName("calculateSumOfPayments")
-                    .withReturnValue()
-                    .declareParameters(outParameter);
-
-            // Execute the function and get the result
-            Map<String, Object> result = jdbcCall.execute(userId);
-
-            // Retrieve the result from the Map
-            Double totalPayments = (Double) result.get("result");
-
-            // Display the result in a browser dialog window (use logger instead of JOptionPane in a web application)
-            logger.info("Total payments for user with ID {}: {}", userId, totalPayments);
-
-            return totalPayments;
-        } catch (Exception e) {
-            // Handle exceptions
-            logger.error("Error calculating total payments", e);
-            throw new RuntimeException("Error calculating total payments", e);
-        }
-    }
-
-
-    public String findRichestUser() {
-        try {
-            // Create SimpleJdbcCall for the stored procedure
-            SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-                    .withProcedureName("findUserWithHighestPayments")
-                    .declareParameters(
-                            new SqlOutParameter("p_highestUserId", Types.INTEGER),
-                            new SqlOutParameter("p_highestTotalPayments", Types.DECIMAL),
-                            new SqlOutParameter("p_richestUsername", Types.VARCHAR)
-                    );
-
-            // Execute the stored procedure
-            Map<String, Object> result = simpleJdbcCall.execute();
-
-            // Extract the result from the returned map
-            Integer highestUserId = (Integer) result.get("p_highestUserId");
-            BigDecimal highestTotalPayments = (BigDecimal) result.get("p_highestTotalPayments");  // Use BigDecimal
-
-            String richestUsername = (String) result.get("p_richestUsername");  // Retrieve the value
-
-            logger.info("Richest user is: " + richestUsername + " with total payments: " + highestTotalPayments);
-
-            return richestUsername;
-        } catch (Exception e) {
-            // Handle exceptions
-            logger.error("Error finding richest user", e);
-            throw new RuntimeException("Error finding richest user", e);
-        }
-    }
-
-
-    // Helper method to retrieve username by user ID
     private String getUsernameByUserId(Integer userId) {
         String query = "SELECT USERNAME FROM USERS WHERE USERID = ?";
         return jdbcTemplate.queryForObject(query, new Object[]{userId}, String.class);

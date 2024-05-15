@@ -1,0 +1,54 @@
+/* Specific styles for Card4Cart component */
+.small-card-container .small-card-img {
+    width: 100%;
+    height: auto;
+    max-width: 400px; /* Ensure the image does not exceed 400px width */
+    max-height: 400px; /* Ensure the image does not exceed 400px height */
+    border: 1px solid #ccc; /* Add border around the image */
+  }
+  
+  .small-card-details {
+    padding: 10px;
+  }
+  
+  .small-card-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .small-card-description {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .small-card-details p {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  
+  .small-card-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .small-price {
+    display: flex;
+    align-items: center;
+  }
+  
+  .small-price del {
+    color: #999;
+    margin-right: 5px;
+  }
+  
+  .small-new-price {
+    color: red;
+  }
+  
+  .small-bag-icon {
+    font-size: 20px;
+    color: #333;
+  }
